@@ -8,9 +8,12 @@ const P = {
     opis: "Planer spłaty długów w Excelu: metoda lawiny i kuli śnieżnej, data wolności od długów i ile odsetek oszczędzasz.", btn: "Zobacz planer spłaty długów" },
   jdg: { url: "https://payhip.com/b/Mt7pb", tytul: "Prowadzisz JDG albo pracujesz jako freelancer?",
     opis: "Tracker przychodów i kosztów w Excelu: faktury, zaległe płatności, wynik co miesiąc i ile odłożyć na podatki.", btn: "Zobacz tracker" },
+  oszczedzanie: { url: "https://payhip.com/b/BV1tF", tytul: "Chcesz wreszcie regularnie odkładać?",
+    opis: "Wyzwania oszczędnościowe do druku: 100 kopert (5050 zł), 52 tygodnie, cele 1000–10 000 zł i fundusze celowe. Kolorujesz kratki, oszczędności rosną.", btn: "Zobacz wyzwania" },
 };
 const CTA_STRONY = { "kalkulator-raty-kredytu": "dlugi", "kalkulator-nadplaty-kredytu": "dlugi",
-  "kalkulator-vat": "jdg", "kalkulator-procentow": "jdg" };
+  "kalkulator-vat": "jdg", "kalkulator-procentow": "jdg",
+  "kalkulator-oszczednosci": "oszczedzanie", "kalkulator-lokaty": "oszczedzanie" };
 
 const zl = v => new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" }).format(isFinite(v) ? v : 0);
 const num = id => parseFloat(String(document.getElementById(id).value).replace(",", ".")) || 0;
