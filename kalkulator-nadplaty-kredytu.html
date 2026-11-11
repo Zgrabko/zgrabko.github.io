@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator nadpłaty kredytu – ile zaoszczędzisz na odsetkach | Planfox</title>
+<meta name="description" content="Kalkulator nadpłaty kredytu hipotecznego: sprawdź, ile zaoszczędzisz na odsetkach i o ile skrócisz kredyt albo zmniejszysz ratę. Nadpłata jednorazowa i co miesiąc.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator nadpłaty kredytu</h1>
+  <p class="lead">Porównaj kredyt bez nadpłaty i z nadpłatą: zaoszczędzone odsetki, nowa rata lub krótszy okres.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="saldo">Kapitał do spłaty (zł)</label><input id="saldo" type="number" inputmode="decimal" value="300000" min="0" step="1000"></div>
+      <div><label for="opr">Oprocentowanie roczne (%)</label><input id="opr" type="number" inputmode="decimal" value="7" min="0" step="0.01"></div>
+    </div>
+    <div class="row">
+      <div><label for="mies">Pozostało rat (miesiące)</label><input id="mies" type="number" value="240" min="1" max="480" step="1"></div>
+      <div><label for="cel">Po nadpłacie chcę</label><select id="cel"><option value="okres">skrócić okres (rata bez zmian)</option><option value="rata">zmniejszyć ratę (okres bez zmian)</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="jedn">Nadpłata jednorazowa teraz (zł)</label><input id="jedn" type="number" inputmode="decimal" value="20000" min="0" step="1000"></div>
+      <div><label for="comies">Nadpłata co miesiąc (zł)</label><input id="comies" type="number" inputmode="decimal" value="0" min="0" step="100"></div>
+    </div>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Nadpłata kredytu – najczęstsze pytania</h2>
+    <h3>Co się bardziej opłaca: krótszy okres czy niższa rata?</h3><p>Skrócenie okresu zwykle daje większą oszczędność na odsetkach. Niższa rata daje za to więcej luzu w budżecie co miesiąc.</p>
+    <h3>Czy bank może pobrać opłatę za nadpłatę?</h3><p>Przy kredycie hipotecznym ze zmiennym oprocentowaniem po 3 latach od zawarcia umowy nadpłata jest bezpłatna. Szczegóły zawsze sprawdź w swojej umowie.</p>
+    <h3>Czy opłaca się nadpłacać małe kwoty?</h3><p>Tak. Nawet kilkaset złotych miesięcznie przez kilka lat potrafi obniżyć odsetki o dziesiątki tysięcy złotych. Wpisz kwotę w polu „Nadpłata co miesiąc”.</p>
+    <p><small>Kalkulator zakłada raty równe i stałe oprocentowanie. Nie uwzględnia prowizji ani ubezpieczeń.</small></p>
+  </section>
+</main>
+<footer></footer>
+<script>
+const rataAnn = (S, r, n) => r ? S*r/(1-Math.pow(1+r,-n)) : S/n;
+function symuluj(S, r, n, cel, extra, rata0){ let saldo = S, ods = 0, k = 0, nadp = 0, pierwsza = 0, ostatnia = 0;
+  while (saldo > 0.005 && k < n) {
+    k++;
+    const o = saldo*r, rata = cel === "rata" ? rataAnn(saldo, r, n-k+1) : rata0;
+    const kap = Math.min(rata - o, saldo); saldo -= kap; ods += o;
+    if (k === 1) pierwsza = kap + o; ostatnia = kap + o;
+    if (extra > 0 && saldo > 0) { const e = Math.min(extra, saldo); saldo -= e; nadp += e; }
+  }
+  return { ods, k, pierwsza, ostatnia, nadp };
+}
+const okres = m => { const l = Math.floor(m/12), r = m%12; return (l ? l+" l. " : "") + (r ? r+" mies." : (l ? "" : "0 mies.")); };
+function licz(){
+  const S = num("saldo"), r = num("opr")/100/12, n = Math.round(num("mies")), cel = document.getElementById("cel").value;
+  const N = Math.min(num("jedn"), S), E = num("comies");
+  if (!S || n < 1) { document.getElementById("wynik").innerHTML = "Uzupełnij kapitał i liczbę rat."; return; }
+  const rata0 = rataAnn(S, r, n), bez = symuluj(S, r, n, "okres", 0, rata0), z = symuluj(S - N, r, n, cel, E, rata0);
+  const zysk = bez.ods - z.ods;
+  const rataWiersz = cel === "rata"
+    ? `<tr><td>Rata po nadpłacie</td><td>${zl(z.pierwsza)}${E>0?` → ${zl(z.ostatnia)}`:""}</td></tr>`
+    : `<tr><td>Rata po nadpłacie</td><td>${zl(z.k?z.pierwsza:0)}${E>0?` + ${zl(E)} nadpłaty`:""}</td></tr>`;
+  document.getElementById("wynik").innerHTML = `<div class="big">${zl(zysk)} mniej odsetek</div>
+    <table><tr><td>Rata bez nadpłaty</td><td>${zl(bez.pierwsza)}</td></tr>${rataWiersz}
+    <tr><td>Okres spłaty</td><td>${okres(bez.k)} → ${okres(z.k)}</td></tr>
+    <tr><td>Odsetki bez nadpłaty</td><td>${zl(bez.ods)}</td></tr><tr><td>Odsetki z nadpłatą</td><td>${zl(z.ods)}</td></tr>
+    <tr><td>Nadpłacono łącznie</td><td>${zl(N + z.nadp)}</td></tr></table>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>

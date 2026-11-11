@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator VAT 2026 – netto brutto online | Planfox</title>
+<meta name="description" content="Kalkulator VAT online: przelicz netto na brutto i brutto na netto. Stawki 23%, 8%, 5% i 0%. Wynik od razu.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator VAT – netto i brutto</h1>
+  <p class="lead">Wpisz kwotę i wybierz stawkę. Wynik liczy się na bieżąco.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="kwota">Kwota (zł)</label><input id="kwota" type="number" inputmode="decimal" value="1000" min="0" step="0.01"></div>
+      <div><label for="stawka">Stawka VAT</label>
+        <select id="stawka"><option value="23">23%</option><option value="8">8%</option><option value="5">5%</option><option value="0">0%</option></select></div>
+    </div>
+    <label for="tryb">Wpisana kwota to</label>
+    <select id="tryb"><option value="netto">netto (doliczam VAT)</option><option value="brutto">brutto (wyliczam VAT z kwoty)</option></select>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Jak liczyć VAT?</h2>
+    <h3>Z netto na brutto</h3><p>Brutto = netto × (1 + stawka). Przy 23%: 1000 zł netto × 1,23 = 1230 zł brutto.</p>
+    <h3>Z brutto na netto</h3><p>Netto = brutto ÷ (1 + stawka). Przy 23%: 1230 zł ÷ 1,23 = 1000 zł netto.</p>
+    <h3>Jakie są stawki VAT w Polsce?</h3><p>Podstawowa 23%, obniżone 8% i 5% (m.in. część żywności, książki) oraz 0% (m.in. eksport).</p>
+  </section>
+</main>
+<footer></footer>
+<script>
+function licz(){
+  const k = num("kwota"), s = num("stawka")/100, tryb = document.getElementById("tryb").value;
+  const netto = tryb === "netto" ? k : k/(1+s), brutto = netto*(1+s);
+  document.getElementById("wynik").innerHTML = `<div class="big">${zl(tryb==="netto"?brutto:netto)}</div>
+    <table><tr><td>Netto</td><td>${zl(netto)}</td></tr><tr><td>VAT (${s*100}%)</td><td>${zl(brutto-netto)}</td></tr><tr><td>Brutto</td><td>${zl(brutto)}</td></tr></table>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>

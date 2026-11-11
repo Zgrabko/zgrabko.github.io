@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator lokaty 2026 – zysk z lokaty po podatku Belki | Planfox</title>
+<meta name="description" content="Kalkulator lokaty bankowej: sprawdź, ile zarobisz na lokacie po odjęciu 19% podatku Belki. Okres w miesiącach, kapitalizacja na koniec lub co miesiąc.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator lokaty</h1>
+  <p class="lead">Ile zarobisz na lokacie na rękę? Wpisz kwotę, oprocentowanie i okres.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="kwota">Kwota lokaty (zł)</label><input id="kwota" type="number" inputmode="decimal" value="10000" min="0" step="100"></div>
+      <div><label for="opr">Oprocentowanie roczne (%)</label><input id="opr" type="number" inputmode="decimal" value="5" min="0" step="0.01"></div>
+    </div>
+    <div class="row">
+      <div><label for="mies">Okres (miesiące)</label><input id="mies" type="number" value="6" min="1" max="120" step="1"></div>
+      <div><label for="kap">Kapitalizacja odsetek</label><select id="kap"><option value="koniec">na koniec okresu</option><option value="mies">co miesiąc</option></select></div>
+    </div>
+    <label for="belka">Podatek od zysków (Belki)</label>
+    <select id="belka"><option value="19">odejmij 19%</option><option value="0">nie odejmuj (np. IKE/IKZE)</option></select>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Jak liczyć zysk z lokaty?</h2>
+    <h3>Wzór na odsetki z lokaty</h3><p>Odsetki = kwota × oprocentowanie roczne × liczba miesięcy ÷ 12. Przy 10 000 zł, 5% i 6 miesiącach to 250 zł brutto.</p>
+    <h3>Ile wynosi podatek Belki od lokaty?</h3><p>19% od naliczonych odsetek. Bank pobiera go sam, więc z 250 zł odsetek na konto trafi około 202,50 zł.</p>
+    <h3>Co daje kapitalizacja miesięczna?</h3><p>Odsetki są co miesiąc dopisywane do kapitału i same zaczynają zarabiać. Przy krótkich lokatach różnica jest niewielka.</p>
+    <h3>Czym jest oprocentowanie w skali roku?</h3><p>Banki zawsze podają stawkę roczną. Lokata 3-miesięczna na 6% da realnie ok. 1,5% od wpłaconej kwoty, bo trwa tylko ćwierć roku.</p>
+    <p><small>Wynik jest poglądowy. Bank może zaokrąglać odsetki i podatek inaczej.</small></p>
+  </section>
+</main>
+<footer></footer>
+<script>
+function licz(){
+  const K = num("kwota"), r = num("opr")/100, m = Math.round(num("mies")), t = num("belka")/100, kap = document.getElementById("kap").value;
+  if (!K || m < 1) { document.getElementById("wynik").innerHTML = "Uzupełnij kwotę i okres."; return; }
+  let brutto, podatek;
+  if (kap === "koniec") { brutto = K*r*m/12; podatek = brutto*t; }
+  else {
+    let saldo = K; brutto = 0; podatek = 0;
+    for (let i = 0; i < m; i++) { const o = saldo*r/12; brutto += o; podatek += o*t; saldo += o*(1-t); }
+  }
+  const netto = brutto - podatek;
+  document.getElementById("wynik").innerHTML = `<div class="big">${zl(netto)} zysku</div><div>na rękę, po ${m} mies.</div>
+    <table><tr><td>Odsetki brutto</td><td>${zl(brutto)}</td></tr><tr><td>Podatek Belki (${t*100}%)</td><td>${zl(podatek)}</td></tr>
+    <tr><td>Zysk netto</td><td>${zl(netto)}</td></tr><tr><td>Kwota po zakończeniu lokaty</td><td>${zl(K+netto)}</td></tr>
+    <tr><td>Realny zysk w skali roku</td><td>${(netto/K*12/m*100).toFixed(2).replace(".", ",")}%</td></tr></table>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>

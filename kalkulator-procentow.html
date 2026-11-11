@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator procentów – ile to procent z liczby, zmiana % | Planfox</title>
+<meta name="description" content="Kalkulator procentowy online: ile to jest X% z liczby, jakim procentem jednej liczby jest druga i o ile procent wzrosła lub spadła wartość. Wynik od razu.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator procentów</h1>
+  <p class="lead">Trzy najczęstsze obliczenia procentowe w jednym miejscu. Wynik liczy się na bieżąco.</p>
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Ile to jest X% z liczby?</h2>
+    <div class="row">
+      <div><label for="p1">Procent (%)</label><input id="p1" type="number" inputmode="decimal" value="15" step="any"></div>
+      <div><label for="l1">z liczby</label><input id="l1" type="number" inputmode="decimal" value="240" step="any"></div>
+    </div>
+    <div class="result" id="w1"></div>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Jakim procentem liczby B jest liczba A?</h2>
+    <div class="row">
+      <div><label for="a2">Liczba A</label><input id="a2" type="number" inputmode="decimal" value="36" step="any"></div>
+      <div><label for="b2">Liczba B (całość)</label><input id="b2" type="number" inputmode="decimal" value="240" step="any"></div>
+    </div>
+    <div class="result" id="w2"></div>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Zmiana procentowa (wzrost / spadek)</h2>
+    <div class="row">
+      <div><label for="a3">Wartość początkowa</label><input id="a3" type="number" inputmode="decimal" value="80" step="any"></div>
+      <div><label for="b3">Wartość końcowa</label><input id="b3" type="number" inputmode="decimal" value="100" step="any"></div>
+    </div>
+    <div class="result" id="w3"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Jak liczyć procenty?</h2>
+    <h3>Jak obliczyć procent z liczby?</h3><p>Pomnóż liczbę przez procent i podziel przez 100. 15% z 240 = 240 × 15 ÷ 100 = 36.</p>
+    <h3>Jak obliczyć, jakim procentem jest jedna liczba drugiej?</h3><p>Podziel część przez całość i pomnóż przez 100. 36 z 240 to 36 ÷ 240 × 100 = 15%.</p>
+    <h3>Jak policzyć, o ile procent wzrosła cena?</h3><p>(nowa − stara) ÷ stara × 100. Z 80 zł na 100 zł to (100 − 80) ÷ 80 × 100 = 25% więcej.</p>
+    <h3>Czym różni się procent od punktu procentowego?</h3><p>Gdy oprocentowanie rośnie z 5% do 6%, to wzrost o 1 punkt procentowy, ale aż o 20% względem poprzedniej wartości.</p>
+  </section>
+</main>
+<footer></footer>
+<script>
+const f = v => new Intl.NumberFormat("pl-PL", { maximumFractionDigits: 4 }).format(isFinite(v) ? v : 0);
+function licz(){
+  const p1 = num("p1"), l1 = num("l1"), x = l1*p1/100;
+  document.getElementById("w1").innerHTML = `<div class="big">${f(x)}</div>
+    <table><tr><td>${f(p1)}% z ${f(l1)}</td><td>${f(x)}</td></tr><tr><td>${f(l1)} + ${f(p1)}%</td><td>${f(l1+x)}</td></tr><tr><td>${f(l1)} − ${f(p1)}%</td><td>${f(l1-x)}</td></tr></table>`;
+  const a2 = num("a2"), b2 = num("b2");
+  document.getElementById("w2").innerHTML = b2 ? `<div class="big">${f(a2/b2*100)}%</div><div>${f(a2)} to ${f(a2/b2*100)}% liczby ${f(b2)}</div>`
+    : "Liczba B nie może być zerem.";
+  const a3 = num("a3"), b3 = num("b3");
+  if (!a3) { document.getElementById("w3").innerHTML = "Wartość początkowa nie może być zerem."; return; }
+  const z = (b3-a3)/Math.abs(a3)*100;
+  document.getElementById("w3").innerHTML = `<div class="big">${z>0?"+":""}${f(z)}%</div>
+    <table><tr><td>Kierunek</td><td>${z>0?"wzrost":z<0?"spadek":"bez zmian"}</td></tr><tr><td>Różnica</td><td>${f(b3-a3)}</td></tr></table>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>

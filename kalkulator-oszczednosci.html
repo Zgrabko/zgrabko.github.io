@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator oszczędności i procentu składanego | Planfox</title>
+<meta name="description" content="Ile uzbierasz, odkładając co miesiąc? Kalkulator procentu składanego z podatkiem Belki (19%). Darmowy, online.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator oszczędności (procent składany)</h1>
+  <p class="lead">Sprawdź, ile uzbierasz, odkładając regularnie co miesiąc.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="start">Kwota na start (zł)</label><input id="start" type="number" value="5000" min="0" step="100"></div>
+      <div><label for="wplata">Wpłata co miesiąc (zł)</label><input id="wplata" type="number" value="500" min="0" step="50"></div>
+    </div>
+    <div class="row">
+      <div><label for="opr">Zysk roczny (%)</label><input id="opr" type="number" value="5" step="0.1"></div>
+      <div><label for="lata">Okres (lata)</label><input id="lata" type="number" value="10" min="1" max="60" step="1"></div>
+    </div>
+    <label for="belka">Podatek od zysków</label>
+    <select id="belka"><option value="0.19">uwzględnij podatek Belki (19%)</option><option value="0">bez podatku (np. IKE/IKZE)</option></select>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Czym jest procent składany?</h2>
+    <p>Zyski z oszczędności same zaczynają zarabiać. Im dłuższy okres, tym większa część kwoty końcowej pochodzi z odsetek, a nie z Twoich wpłat.</p>
+    <p><small>Kalkulator przyjmuje miesięczną kapitalizację i podatek pobierany od zysku na końcu okresu. Wynik jest poglądowy.</small></p>
+  </section>
+</main>
+<footer></footer>
+<script>
+function licz(){
+  const s = num("start"), w = num("wplata"), r = num("opr")/100/12, n = Math.round(num("lata")*12), t = num("belka");
+  let saldo = s;
+  for (let i = 0; i < n; i++) saldo = saldo*(1+r) + w;
+  const wplacone = s + w*n, zysk = saldo - wplacone, podatek = zysk > 0 ? zysk*t : 0, netto = saldo - podatek;
+  document.getElementById("wynik").innerHTML = `<div class="big">${zl(netto)}</div><div>na koniec okresu (po podatku)</div>
+    <table><tr><td>Twoje wpłaty</td><td>${zl(wplacone)}</td></tr><tr><td>Zysk przed podatkiem</td><td>${zl(zysk)}</td></tr>
+    <tr><td>Podatek</td><td>${zl(podatek)}</td></tr><tr><td>Zysk na czysto</td><td>${zl(zysk-podatek)}</td></tr></table>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>

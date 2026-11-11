@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator dni – ile dni między datami, dni robocze | Planfox</title>
+<meta name="description" content="Policz, ile dni jest między dwiema datami: dni kalendarzowe, tygodnie, miesiące i dni robocze z uwzględnieniem polskich świąt (także Wigilii od 2025 r.).">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator dni między datami</h1>
+  <p class="lead">Ile dni zostało do terminu albo minęło od wydarzenia? Liczymy też dni robocze.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="od">Data początkowa</label><input id="od" type="date"></div>
+      <div><label for="do">Data końcowa</label><input id="do" type="date"></div>
+    </div>
+    <label for="wlicz">Dzień końcowy</label>
+    <select id="wlicz"><option value="0">nie wliczaj (różnica dat)</option><option value="1">wliczaj (oba dni włącznie)</option></select>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Liczenie dni – najczęstsze pytania</h2>
+    <h3>Czy wliczać pierwszy i ostatni dzień?</h3><p>Różnica dat (np. od 1 do 3 marca = 2 dni) nie wlicza dnia końcowego. Gdy liczysz np. dni urlopu albo trwanie umowy „od – do”, zwykle wlicza się oba dni.</p>
+    <h3>Jak liczone są dni robocze?</h3><p>To dni od poniedziałku do piątku bez świąt ustawowo wolnych od pracy: 1 i 6 stycznia, poniedziałek wielkanocny, 1 i 3 maja, Boże Ciało, 15 sierpnia, 1 i 11 listopada oraz 24, 25 i 26 grudnia (Wigilia od 2025 r.).</p>
+    <h3>Ile dni ma rok?</h3><p>365 dni, a rok przestępny 366. Przestępny jest rok podzielny przez 4, z wyjątkiem lat podzielnych przez 100, ale niepodzielnych przez 400.</p>
+  </section>
+</main>
+<footer></footer>
+<script>
+const f = v => new Intl.NumberFormat("pl-PL", { maximumFractionDigits: 1 }).format(v);
+const iso = d => d.toISOString().slice(0,10);
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return Date.UTC(y, m-1, d); };
+function wielkanoc(y){ // algorytm Meeusa/Jonesa/Butchera
+  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f2=Math.floor((b+8)/25),g=Math.floor((b-f2+1)/3),
+    h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
+    mies=Math.floor((h+l-7*m+114)/31),dz=((h+l-7*m+114)%31)+1;
+  return Date.UTC(y, mies-1, dz);
+}
+const swietaCache = {};
+function swieta(y){
+  if (swietaCache[y]) return swietaCache[y];
+  const s = new Set(["01-01","01-06","05-01","05-03","08-15","11-01","11-11","12-25","12-26"].map(x => `${y}-${x}`));
+  if (y >= 2025) s.add(`${y}-12-24`);
+  const w = wielkanoc(y), D = 864e5;
+  [0, 1, 49, 60].forEach(p => s.add(iso(new Date(w + p*D)))); // Wielkanoc, poniedziałek, Zielone Świątki, Boże Ciało
+  return swietaCache[y] = s;
+}
+function licz(){
+  const a = document.getElementById("od").value, b = document.getElementById("do").value, out = document.getElementById("wynik");
+  if (!a || !b) { out.innerHTML = "Wybierz obie daty."; return; }
+  let t1 = parse(a), t2 = parse(b); const wstecz = t2 < t1; if (wstecz) [t1, t2] = [t2, t1];
+  const wlicz = document.getElementById("wlicz").value === "1", D = 864e5;
+  const dni = Math.round((t2-t1)/D) + (wlicz ? 1 : 0);
+  let rob = 0, weekend = 0, sw = 0;
+  for (let t = t1; t < t2 + (wlicz ? D : 0); t += D) {
+    const d = new Date(t), dow = d.getUTCDay();
+    if (dow === 0 || dow === 6) weekend++; else if (swieta(d.getUTCFullYear()).has(iso(d))) sw++; else rob++;
+  }
+  const d1 = new Date(t1), d2 = new Date(t2 + (wlicz ? D : 0));
+  let mies = (d2.getUTCFullYear()-d1.getUTCFullYear())*12 + d2.getUTCMonth()-d1.getUTCMonth(), reszta = d2.getUTCDate()-d1.getUTCDate();
+  if (reszta < 0) { mies--; reszta += new Date(Date.UTC(d2.getUTCFullYear(), d2.getUTCMonth(), 0)).getUTCDate(); }
+  out.innerHTML = `<div class="big">${dni} ${dni===1?"dzień":"dni"}</div>${wstecz?"<div>data końcowa jest wcześniejsza niż początkowa</div>":""}
+    <table><tr><td>Tygodnie</td><td>${Math.floor(dni/7)} tyg. ${dni%7} ${dni%7===1?"dzień":"dni"} (${f(dni/7)} tyg.)</td></tr>
+    <tr><td>Miesiące</td><td>${Math.floor(mies/12) ? Math.floor(mies/12)+" l. " : ""}${mies%12} mies. ${reszta} dni</td></tr>
+    <tr><td>Dni robocze (pn–pt bez świąt)</td><td>${rob}</td></tr><tr><td>Soboty i niedziele</td><td>${weekend}</td></tr>
+    <tr><td>Święta w dni powszednie</td><td>${sw}</td></tr><tr><td>Godziny</td><td>${(dni*24).toLocaleString("pl-PL")}</td></tr></table>`;
+}
+const dzis = new Date(); document.getElementById("od").value = iso(new Date(Date.UTC(dzis.getFullYear(), dzis.getMonth(), dzis.getDate())));
+document.getElementById("do").value = `${dzis.getFullYear()}-12-31`;
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>
