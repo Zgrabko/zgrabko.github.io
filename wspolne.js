@@ -10,10 +10,13 @@ const P = {
     opis: "Tracker przychodów i kosztów w Excelu: faktury, zaległe płatności, wynik co miesiąc i ile odłożyć na podatki.", btn: "Zobacz tracker" },
   oszczedzanie: { url: "https://payhip.com/b/BV1tF", tytul: "Chcesz wreszcie regularnie odkładać?",
     opis: "Wyzwania oszczędnościowe do druku: 100 kopert (5050 zł), 52 tygodnie, cele 1000–10 000 zł i fundusze celowe. Kolorujesz kratki, oszczędności rosną.", btn: "Zobacz wyzwania" },
+  ike: { url: "https://payhip.com/b/zGobP", tytul: "IKE czy IKZE? Wybierz bez zgadywania",
+    opis: "Poradnik PDF „IKE i IKZE bez tajemnic” (19 zł): limity 2026 i 2027, ulga w PIT, warunki wypłaty, przykład na liczbach i karty pracy.", btn: "Zobacz poradnik" },
 };
 const CTA_STRONY = { "kalkulator-raty-kredytu": "dlugi", "kalkulator-nadplaty-kredytu": "dlugi",
   "kalkulator-vat": "jdg", "kalkulator-procentow": "jdg",
-  "kalkulator-oszczednosci": "oszczedzanie", "kalkulator-lokaty": "oszczedzanie" };
+  "kalkulator-oszczednosci": "oszczedzanie", "kalkulator-lokaty": "oszczedzanie",
+  "kalkulator-ike-ikze": "ike" };
 
 const zl = v => new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" }).format(isFinite(v) ? v : 0);
 const num = id => parseFloat(String(document.getElementById(id).value).replace(",", ".")) || 0;
@@ -21,7 +24,7 @@ const num = id => parseFloat(String(document.getElementById(id).value).replace("
 document.addEventListener("DOMContentLoaded", () => {
   const h = document.querySelector("header");
   if (h) h.innerHTML = `<a class="logo" href="index.html">Planfox</a>
-    <nav><a href="kalkulator-vat.html">VAT</a><a href="kalkulator-raty-kredytu.html">Kredyt</a><a href="kalkulator-nadplaty-kredytu.html">Nadpłata</a><a href="kalkulator-lokaty.html">Lokata</a><a href="kalkulator-oszczednosci.html">Oszczędności</a><a href="kalkulator-procentow.html">Procenty</a><a href="kalkulator-dni.html">Dni</a><a href="${SKLEP}">Sklep</a></nav>`;
+    <nav><a href="kalkulator-vat.html">VAT</a><a href="kalkulator-raty-kredytu.html">Kredyt</a><a href="kalkulator-nadplaty-kredytu.html">Nadpłata</a><a href="kalkulator-lokaty.html">Lokata</a><a href="kalkulator-oszczednosci.html">Oszczędności</a><a href="kalkulator-ike-ikze.html">IKE/IKZE</a><a href="kalkulator-procentow.html">Procenty</a><a href="kalkulator-dni.html">Dni</a><a href="${SKLEP}">Sklep</a></nav>`;
   const c = document.getElementById("cta");
   const strona = location.pathname.split("/").pop().replace(".html", "");
   const p = P[CTA_STRONY[strona] || "budzet"];

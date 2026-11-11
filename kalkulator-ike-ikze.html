@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator IKE i IKZE 2026 – ile zyskasz na podatkach | Planfox</title>
+<meta name="description" content="Kalkulator IKE i IKZE: porównaj IKE, IKZE, oba konta i zwykłe konto. Limity 2026 i 2027, zwrot podatku z IKZE, podatek Belki i 10% ryczałtu przy wypłacie.">
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+<style>
+.warn{margin-top:12px;padding:10px 12px;border-radius:8px;background:#fff4d6;color:#5a4300;border:1px solid #f0d58a;font-size:.93rem}
+@media (prefers-color-scheme:dark){.warn{background:#3a3115;color:#f3dc9a;border-color:#6b5a26}}
+.cmp{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+.cmp th,.cmp td{padding:6px 4px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp th{font-size:.85rem;color:var(--muted);font-weight:600}
+.cmp tr.on td{font-weight:700}
+.scroll{overflow-x:auto}
+@media (max-width:520px){.cmp{font-size:.82rem}.cmp th,.cmp td{padding:6px 2px}}
+</style>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator IKE i IKZE</h1>
+  <p class="lead">Ile zostanie Ci na rękę na IKE, IKZE i zwykłym koncie? Wpisz miesięczną wpłatę, okres i zakładany zysk.</p>
+  <div class="card">
+    <div class="row">
+      <div><label for="wplata">Wpłata miesięcznie (zł)</label><input id="wplata" type="number" inputmode="decimal" value="500" min="0" step="50"></div>
+      <div><label for="lata">Liczba lat oszczędzania</label><input id="lata" type="number" inputmode="numeric" value="30" min="1" max="60" step="1"></div>
+    </div>
+    <div class="row">
+      <div><label for="zysk">Zakładany zysk roczny (%)</label><input id="zysk" type="number" inputmode="decimal" value="5" min="0" max="30" step="0.1"></div>
+      <div><label for="pit">Twoja stawka PIT</label><select id="pit">
+        <option value="12">12% (skala, I próg)</option>
+        <option value="19">19% (liniowy, firma)</option>
+        <option value="32">32% (skala, II próg)</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="konto">Gdzie odkładasz?</label><select id="konto">
+        <option value="ike">IKE</option>
+        <option value="ikze">IKZE</option>
+        <option value="oba">IKZE do limitu + reszta na IKE</option>
+        <option value="zwykle">Zwykłe konto / rachunek maklerski</option></select></div>
+      <div><label for="firma">Prowadzisz firmę (JDG)?</label><select id="firma">
+        <option value="0">nie</option><option value="1">tak – wyższy limit IKZE</option></select></div>
+    </div>
+    <label for="rok">Limity wpłat z roku</label>
+    <select id="rok"></select>
+    <div id="ostrz"></div>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>IKE i IKZE – najważniejsze pytania</h2>
+    <h3>Czym różni się IKE od IKZE?</h3><p>Na IKE nie ma ulgi przy wpłacie, ale po 60. roku życia wypłacasz wszystko bez podatku. Wpłaty na IKZE odliczasz od dochodu w PIT (co roku dostajesz zwrot), a przy wypłacie po 65. roku życia płacisz 10% ryczałtu od całej kwoty.</p>
+    <h3>Jakie są limity wpłat na IKE i IKZE w 2026 i 2027 roku?</h3><p id="faq-lim"></p>
+    <h3>Ile wynosi zwrot podatku z IKZE?</h3><p>Zwrot = wpłata × Twoja stawka podatku. Przy pełnym limicie 2026 (11 304 zł) to ok. 1356 zł przy stawce 12%, 2148 zł przy 19% i 3617 zł przy 32%.</p>
+    <h3>Co wybrać: IKE czy IKZE?</h3><p>Przy stawce 19% lub 32% zwykle wygrywa IKZE dzięki corocznym zwrotom. Przy 12% i gdy zwroty wydajesz, różnica jest niewielka i IKE bywa lepsze. Najwięcej daje połączenie: najpierw IKZE do limitu, nadwyżka na IKE.</p>
+    <h3>Co jeśli wypłacę pieniądze wcześniej?</h3><p>Z IKE zapłacisz 19% podatku od zysku (jak na zwykłym koncie). Wcześniejsza wypłata z IKZE to cała kwota doliczona do dochodu w PIT – zwykle najdroższa opcja.</p>
+    <h3>Jak liczy kalkulator?</h3><p>Wpłaty na początku każdego miesiąca, stały zysk roczny z kapitalizacją miesięczną, podatek Belki na zwykłym koncie liczony raz przy wypłacie, zwroty z IKZE nie są reinwestowane. Wpłaty ponad limit kalkulator przenosi na zwykłe konto. Limity rosną co roku, więc przy długim okresie wynik dla IKE/IKZE jest raczej ostrożny.</p>
+    <p><small>Wynik jest poglądowy i nie jest doradztwem inwestycyjnym ani podatkowym. Zysk nie jest gwarantowany, a przepisy mogą się zmienić.</small></p>
+  </section>
+</main>
+<footer></footer>
+<script>
+// Limity wpłat (zł/rok): IKE, IKZE, IKZE dla prowadzących firmę. AKTUALIZOWAĆ CO STYCZEŃ.
+const LIMITY = { 2026: { ike: 28260, ikze: 11304, ikzeFirma: 16956 },
+                 2027: { ike: 30099, ikze: 12039.60, ikzeFirma: 18059.40 } };
+const BELKA = 0.19, RYCZALT_IKZE = 0.10;
+const lataLim = Object.keys(LIMITY).map(Number).sort();
+const domRok = lataLim.includes(new Date().getFullYear()) ? new Date().getFullYear() : lataLim[lataLim.length - 1];
+document.getElementById("rok").innerHTML = lataLim.map(r => `<option value="${r}"${r === domRok ? " selected" : ""}>${r}</option>`).join("");
+document.getElementById("faq-lim").textContent = lataLim.map(r => `${r}: IKE ${zl(LIMITY[r].ike)}, IKZE ${zl(LIMITY[r].ikze)} (${zl(LIMITY[r].ikzeFirma)} dla prowadzących firmę)`).join("; ") + ". Limity ogłaszane są co roku i zwykle rosną.";
+
+// Wartość po n miesiącach: wpłata na początku miesiąca, kapitalizacja miesięczna (jak w poradniku PDF).
+function wartosc(mies, n, zysk) {
+  const r = Math.pow(1 + zysk, 1/12) - 1; let v = 0;
+  for (let i = 0; i < n; i++) v = (v + mies) * (1 + r);
+  return v;
+}
+// Podział miesięcznej wpłaty między konta wg wariantu i limitów.
+function podzial(wariant, m, L) {
+  const ike = L.ike/12, ikze = L.ikze/12;
+  if (wariant === "ike") return { ike: Math.min(m, ike), ikze: 0, zw: Math.max(0, m - ike) };
+  if (wariant === "ikze") return { ike: 0, ikze: Math.min(m, ikze), zw: Math.max(0, m - ikze) };
+  if (wariant === "oba") { const z = Math.min(m, ikze), k = Math.min(m - z, ike); return { ike: k, ikze: z, zw: m - z - k }; }
+  return { ike: 0, ikze: 0, zw: m };
+}
+function policz(wariant, m, n, zysk, pit, L) {
+  const p = podzial(wariant, m, L);
+  const vIke = wartosc(p.ike, n, zysk), vIkze = wartosc(p.ikze, n, zysk), vZw = wartosc(p.zw, n, zysk);
+  const podZw = BELKA * Math.max(0, vZw - p.zw * n), podIkze = RYCZALT_IKZE * vIkze;
+  const zwrotRok = p.ikze * 12 * pit;
+  const v = vIke + vIkze + vZw, podatek = podZw + podIkze, netto = v - podatek;
+  return { p, v, podatek, netto, zwrotRok, zwroty: zwrotRok * n / 12, razem: netto + zwrotRok * n / 12 };
+}
+const zl0 = v => new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", maximumFractionDigits: 0 }).format(v);
+const NAZWY = { ike: "IKE", ikze: "IKZE", oba: "IKZE + IKE", zwykle: "Zwykłe konto" };
+
+function licz() {
+  const m = num("wplata"), lat = Math.round(num("lata")), zysk = num("zysk")/100, pit = num("pit")/100;
+  const w = document.getElementById("konto").value, firma = document.getElementById("firma").value === "1";
+  const rokL = LIMITY[document.getElementById("rok").value];
+  const L = { ike: rokL.ike, ikze: firma ? rokL.ikzeFirma : rokL.ikze };
+  const out = document.getElementById("wynik"), ost = document.getElementById("ostrz");
+  if (m <= 0 || lat < 1) { out.innerHTML = "Uzupełnij miesięczną wpłatę i liczbę lat (min. 1)."; ost.innerHTML = ""; return; }
+  const n = lat * 12, rocznie = m * 12;
+  const R = policz(w, m, n, zysk, pit, L), Z = policz("zwykle", m, n, zysk, pit, L);
+
+  let ow = "";
+  if (w === "ike" && rocznie > L.ike) ow = `Roczna wpłata ${zl(rocznie)} przekracza limit IKE (${zl(L.ike)}).`;
+  if (w === "ikze" && rocznie > L.ikze) ow = `Roczna wpłata ${zl(rocznie)} przekracza limit IKZE (${zl(L.ikze)}).`;
+  if (w === "oba" && rocznie > L.ike + L.ikze) ow = `Roczna wpłata ${zl(rocznie)} przekracza łączny limit IKZE + IKE (${zl(L.ike + L.ikze)}).`;
+  ost.innerHTML = ow ? `<div class="warn">⚠️ ${ow} Nadwyżkę (${zl(R.p.zw * 12)} rocznie) kalkulator liczy jak na zwykłym koncie.</div>` : "";
+
+  const roznica = R.razem - Z.razem;
+  const sk = w === "oba" && R.p.ikze > 0 ? `<tr><td>Podział wpłaty</td><td>IKZE ${zl(R.p.ikze)} + IKE ${zl(R.p.ike)}${R.p.zw > 0.005 ? ` + zwykłe ${zl(R.p.zw)}` : ""} / mies.</td></tr>` : "";
+  const zwr = R.zwrotRok > 0 ? `<tr><td>Zwrot PIT z IKZE rocznie (${pit*100}%)</td><td>${zl(R.zwrotRok)}</td></tr><tr><td>Zwroty PIT przez ${lat} lat</td><td>${zl(R.zwroty)}</td></tr>` : "";
+  const roz = w !== "zwykle" ? `<tr><td>Zyskujesz względem zwykłego konta</td><td>${roznica >= 0 ? "+" : ""}${zl(roznica)}</td></tr>` : "";
+
+  const wiersze = ["zwykle", "ike", "ikze", "oba"].map(k => {
+    const r = policz(k, m, n, zysk, pit, L);
+    return `<tr${k === w ? ' class="on"' : ""}><td>${NAZWY[k]}</td><td>${zl0(r.netto)}</td><td>${zl0(r.zwroty)}</td><td>${zl0(r.razem)}</td></tr>`;
+  }).join("");
+
+  out.innerHTML = `<div class="big">${zl(R.razem)}</div><div>na rękę po ${lat} latach${R.zwroty > 0 ? " (z wypłatą i zwrotami PIT)" : ""} – ${NAZWY[w]}</div>
+    <table>${sk}<tr><td>Suma wpłat</td><td>${zl(m * n)}</td></tr>
+    <tr><td>Wartość przy wypłacie</td><td>${zl(R.v)}</td></tr>
+    <tr><td>w tym zysk</td><td>${zl(R.v - m * n)}</td></tr>
+    <tr><td>Podatek przy wypłacie</td><td>${R.podatek > 0.005 ? "−" : ""}${zl(R.podatek)}</td></tr>
+    <tr><td>Na rękę z konta</td><td>${zl(R.netto)}</td></tr>${zwr}${roz}</table>
+    <h3 style="margin:18px 0 0;font-size:1.05rem">Porównanie wariantów</h3>
+    <div class="scroll"><table class="cmp"><tr><th>Wariant</th><th>Na rękę</th><th>Zwroty</th><th>Razem</th></tr>${wiersze}</table></div>
+    <p style="margin:8px 0 0;font-size:.85rem;color:var(--muted)">Zwykłe konto: 19% podatku Belki od zysku. IKE: 0% po spełnieniu warunków. IKZE: 10% ryczałtu od całej wypłaty. Wpłaty ponad limit liczone jak na zwykłym koncie.</p>`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>
