@@ -2,6 +2,8 @@
 // Sklep Planfox na Payhip (ceny w PLN). Każdy kalkulator poleca najbliższy tematycznie produkt.
 const SKLEP = "https://payhip.com/PlanFoxShop";
 const P = {
+  sklep: { url: SKLEP, tytul: "Gotowe planery i poradniki Planfox",
+    opis: "Arkusze Excel i PDF-y do druku: budżet, spłata długów, oszczędzanie, IKE/IKZE, JDG, najem, ślub, podróże i święta. Od 12 zł, pobierasz od razu po zakupie.", btn: "Przejdź do sklepu" },
   budzet: { url: "https://payhip.com/b/LKbR5", tytul: "Chcesz panować nad domowym budżetem?",
     opis: "Gotowy planer budżetu w Excelu: wydatki, oszczędności, cele i wykresy. Wpisujesz kwoty, resztę liczy sam.", btn: "Zobacz planer budżetu" },
   dlugi: { url: "https://payhip.com/b/W7R4U", tytul: "Spłacasz kredyt lub kilka długów?",
@@ -13,7 +15,8 @@ const P = {
   ike: { url: "https://payhip.com/b/zGobP", tytul: "IKE czy IKZE? Wybierz bez zgadywania",
     opis: "Poradnik PDF „IKE i IKZE bez tajemnic” (19 zł): limity 2026 i 2027, ulga w PIT, warunki wypłaty, przykład na liczbach i karty pracy.", btn: "Zobacz poradnik" },
 };
-const CTA_STRONY = { "kalkulator-raty-kredytu": "dlugi", "kalkulator-nadplaty-kredytu": "dlugi",
+// Strona główna poleca cały sklep, każdy kalkulator — swój produkt (właściciel 2026-11-11).
+const CTA_STRONY = { "": "sklep", "index": "sklep", "kalkulator-raty-kredytu": "dlugi", "kalkulator-nadplaty-kredytu": "dlugi",
   "kalkulator-vat": "jdg", "kalkulator-procentow": "jdg",
   "kalkulator-oszczednosci": "oszczedzanie", "kalkulator-lokaty": "oszczedzanie",
   "kalkulator-ike-ikze": "ike" };
@@ -31,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (c) c.innerHTML = `<div class="card cta"><strong>${p.tytul}</strong>
     <p style="margin:6px 0 0">${p.opis}</p>
     <a class="btn" href="${p.url}" rel="noopener">${p.btn} →</a>
-    <p style="margin:10px 0 0;font-size:.9rem"><a href="${SKLEP}" rel="noopener" style="color:inherit">Wszystkie planery Planfox →</a></p></div>`;
+    ${p.url === SKLEP ? "" : `<p style="margin:10px 0 0;font-size:.9rem"><a href="${SKLEP}" rel="noopener" style="color:inherit">Wszystkie planery Planfox →</a></p>`}</div>`;
   const f = document.querySelector("footer");
   if (f) f.innerHTML = `© ${new Date().getFullYear()} Planfox · Wyniki mają charakter poglądowy i nie są poradą finansową.`;
 });
