@@ -57,8 +57,12 @@
 }
 </script>
 <!-- /SEO -->
-<link rel="stylesheet" href="style.css">
-<script src="wspolne.js"></script>
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3e">
+<script src="wspolne.js?v=2"></script>
 </head>
 <body>
 <header></header>
@@ -77,6 +81,7 @@
     <label for="belka">Podatek od zysków</label>
     <select id="belka"><option value="0.19">uwzględnij podatek Belki (19%)</option><option value="0">bez podatku (np. IKE/IKZE)</option></select>
     <div class="result" id="wynik"></div>
+    <div class="wykres" id="wykres"></div>
   </div>
   <div id="cta"></div>
   <section class="faq">
@@ -90,11 +95,13 @@
 function licz(){
   const s = num("start"), w = num("wplata"), r = num("opr")/100/12, n = Math.round(num("lata")*12), t = num("belka");
   let saldo = s;
-  for (let i = 0; i < n; i++) saldo = saldo*(1+r) + w;
+  const pkt = [s], wpl = [s];
+  for (let i = 0; i < n; i++) { saldo = saldo*(1+r) + w; if ((i+1) % 12 === 0 || i === n-1) { pkt.push(saldo); wpl.push(s + w*(i+1)); } }
   const wplacone = s + w*n, zysk = saldo - wplacone, podatek = zysk > 0 ? zysk*t : 0, netto = saldo - podatek;
   document.getElementById("wynik").innerHTML = `<div class="big">${zl(netto)}</div><div>na koniec okresu (po podatku)</div>
     <table><tr><td>Twoje wpłaty</td><td>${zl(wplacone)}</td></tr><tr><td>Zysk przed podatkiem</td><td>${zl(zysk)}</td></tr>
     <tr><td>Podatek</td><td>${zl(podatek)}</td></tr><tr><td>Zysk na czysto</td><td>${zl(zysk-podatek)}</td></tr></table>`;
+  wykresLinii(document.getElementById("wykres"), [{ nazwa: "Saldo przed podatkiem", kolor: "#1f6feb", dane: pkt, pole: true }, { nazwa: "Twoje wpłaty", kolor: "#0f9d58", dane: wpl, kreski: true }], i => i ? (i * 12 > n ? Math.round(n / 12 * 10) / 10 : i) + " r." : "start");
 }
 document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
 </script>

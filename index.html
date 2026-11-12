@@ -12,13 +12,13 @@
 <meta property="og:title" content="Planfox – darmowe kalkulatory finansowe online">
 <meta property="og:description" content="Darmowe kalkulatory online: budżet na święta, koszt wesela, spłata długów, VAT, rata i nadpłata kredytu, oszczędności, lokata, IKE/IKZE. Bez rejestracji.">
 <meta property="og:url" content="https://planfoxshop.github.io/">
-<meta property="og:image" content="https://planfoxshop.github.io/img/pakiet-wszystko-PL.jpg">
-<meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="1000">
+<meta property="og:image" content="https://planfoxshop.github.io/img/og-planfox.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Planfox – darmowe kalkulatory finansowe online">
 <meta name="twitter:description" content="Darmowe kalkulatory online: budżet na święta, koszt wesela, spłata długów, VAT, rata i nadpłata kredytu, oszczędności, lokata, IKE/IKZE. Bez rejestracji.">
-<meta name="twitter:image" content="https://planfoxshop.github.io/img/pakiet-wszystko-PL.jpg">
+<meta name="twitter:image" content="https://planfoxshop.github.io/img/og-planfox.jpg">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -39,35 +39,143 @@
 }
 </script>
 <!-- /SEO -->
-<link rel="stylesheet" href="style.css">
-<script src="wspolne.js"></script>
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3e">
+<script src="wspolne.js?v=2"></script>
 </head>
-<body>
+<body class="home">
 <header></header>
-<main>
-  <h1>Darmowe kalkulatory finansowe</h1>
-  <p class="lead">Policz szybko, bez rejestracji i bez reklam wyskakujących na pół ekranu.</p>
-  <div class="tools">
-    <a href="kalkulator-budzetu-swiat.html"><strong>Kalkulator budżetu na święta</strong><span>Prezenty, Wigilia, dojazdy i ile odkładać co tydzień do 24 grudnia.</span></a>
-    <a href="kalkulator-kosztow-wesela.html"><strong>Kalkulator kosztów wesela</strong><span>Koszt wesela, koszt na gościa i ile odkładać co miesiąc.</span></a>
-    <a href="kalkulator-splaty-dlugow.html"><strong>Kalkulator spłaty długów</strong><span>Kula śnieżna czy lawina: data wyjścia z długów i odsetki.</span></a>
-    <a href="kalkulator-vat.html"><strong>Kalkulator VAT</strong><span>Netto ↔ brutto, stawki 23%, 8%, 5%, 0%.</span></a>
-    <a href="kalkulator-raty-kredytu.html"><strong>Kalkulator raty kredytu</strong><span>Raty równe i malejące, koszt odsetek.</span></a>
-    <a href="kalkulator-oszczednosci.html"><strong>Kalkulator oszczędności</strong><span>Procent składany, wpłaty co miesiąc, podatek Belki.</span></a>
-    <a href="kalkulator-nadplaty-kredytu.html"><strong>Kalkulator nadpłaty kredytu</strong><span>Ile zaoszczędzisz: krótszy okres albo niższa rata.</span></a>
-    <a href="kalkulator-lokaty.html"><strong>Kalkulator lokaty</strong><span>Zysk na rękę po podatku Belki.</span></a>
-    <a href="kalkulator-ike-ikze.html"><strong>Kalkulator IKE i IKZE</strong><span>IKE, IKZE czy zwykłe konto, zwrot PIT, limity 2026/2027.</span></a>
-    <a href="kalkulator-procentow.html"><strong>Kalkulator procentów</strong><span>Ile to % z liczby, zmiana procentowa.</span></a>
-    <a href="kalkulator-dni.html"><strong>Kalkulator dni</strong><span>Dni między datami i dni robocze ze świętami.</span></a>
+<section class="hero">
+  <div class="wrap">
+    <h1>Darmowe kalkulatory finansowe</h1>
+    <p>Policz ratę, oszczędności, budżet świąt czy koszt wesela w kilka sekund. Bez rejestracji i bez wyskakujących reklam.</p>
+    <div class="szukaj"><span data-ico="szukaj"></span><input id="szukaj" type="search" placeholder="Czego szukasz? np. kredyt, VAT, wesele" aria-label="Szukaj kalkulatora" autocomplete="off"></div>
+    <div class="chipy"><a href="kalkulator-budzetu-swiat.html">Budżet świąt</a><a href="kalkulator-raty-kredytu.html">Rata kredytu</a><a href="kalkulator-vat.html">VAT</a><a href="kalkulator-splaty-dlugow.html">Spłata długów</a><a href="kalkulator-kosztow-wesela.html">Koszt wesela</a></div>
   </div>
+</section>
+<main>
+  <div id="sezon"></div>
+  <section class="grupa">
+    <h2>Pieniądze i kredyty</h2>
+    <div class="tools">
+      <a href="kalkulator-raty-kredytu.html" data-szukaj="kalkulator raty kredytu raty równe i malejące, koszt odsetek. kredyt hipoteka rata pożyczka"><span class="ico" data-ico="kredyt"></span><span><strong>Kalkulator raty kredytu</strong><span>Raty równe i malejące, koszt odsetek.</span></span></a>
+      <a href="kalkulator-nadplaty-kredytu.html" data-szukaj="kalkulator nadpłaty kredytu ile zaoszczędzisz: krótszy okres albo niższa rata. kredyt hipoteka nadpłata"><span class="ico" data-ico="nadplata"></span><span><strong>Kalkulator nadpłaty kredytu</strong><span>Ile zaoszczędzisz: krótszy okres albo niższa rata.</span></span></a>
+      <a href="kalkulator-splaty-dlugow.html" data-szukaj="kalkulator spłaty długów kula śnieżna czy lawina: data wyjścia z długów i odsetki. długi dług kredyt pożyczka karta kula śnieżna lawina chwilówka"><span class="ico" data-ico="dlugi"></span><span><strong>Kalkulator spłaty długów</strong><span>Kula śnieżna czy lawina: data wyjścia z długów i odsetki.</span></span></a>
+    </div>
+  </section>
+  <section class="grupa">
+    <h2>Oszczędzanie i emerytura</h2>
+    <div class="tools">
+      <a href="kalkulator-oszczednosci.html" data-szukaj="kalkulator oszczędności procent składany, wpłaty co miesiąc, podatek belki. oszczędzanie procent składany odsetki"><span class="ico" data-ico="oszczednosci"></span><span><strong>Kalkulator oszczędności</strong><span>Procent składany, wpłaty co miesiąc, podatek Belki.</span></span></a>
+      <a href="kalkulator-lokaty.html" data-szukaj="kalkulator lokaty zysk na rękę po podatku belki. lokata bank odsetki belka oszczędzanie"><span class="ico" data-ico="lokata"></span><span><strong>Kalkulator lokaty</strong><span>Zysk na rękę po podatku Belki.</span></span></a>
+      <a href="kalkulator-ike-ikze.html" data-szukaj="kalkulator ike i ikze ike, ikze czy zwykłe konto, zwrot pit, limity 2026/2027. ike ikze emerytura podatek pit"><span class="ico" data-ico="ike"></span><span><strong>Kalkulator IKE i IKZE</strong><span>IKE, IKZE czy zwykłe konto, zwrot PIT, limity 2026/2027.</span></span></a>
+    </div>
+  </section>
+  <section class="grupa">
+    <h2>Firma: VAT i procenty</h2>
+    <div class="tools">
+      <a href="kalkulator-vat.html" data-szukaj="kalkulator vat netto ↔ brutto, stawki 23%, 8%, 5%, 0%. vat netto brutto faktura firma jdg"><span class="ico" data-ico="vat"></span><span><strong>Kalkulator VAT</strong><span>Netto ↔ brutto, stawki 23%, 8%, 5%, 0%.</span></span></a>
+      <a href="kalkulator-procentow.html" data-szukaj="kalkulator procentów ile to % z liczby, zmiana procentowa. procent procenty"><span class="ico" data-ico="procent"></span><span><strong>Kalkulator procentów</strong><span>Ile to % z liczby, zmiana procentowa.</span></span></a>
+    </div>
+  </section>
+  <section class="grupa">
+    <h2>Ślub i wesele</h2>
+    <div class="tools">
+      <a href="kalkulator-kosztow-wesela.html" data-szukaj="kalkulator kosztów wesela koszt wesela, koszt na gościa i ile odkładać co miesiąc. wesele ślub wesela goście"><span class="ico" data-ico="wesele"></span><span><strong>Kalkulator kosztów wesela</strong><span>Koszt wesela, koszt na gościa i ile odkładać co miesiąc.</span></span></a>
+      <a href="poradnik-ile-kosztuje-wesele.html" data-szukaj="ile kosztuje wesele? poradnik: budżet wesela na 50, 80 i 100 osób – ślub i wesele. poradnik"><span class="ico g" data-ico="poradnik"></span><span><strong>Ile kosztuje wesele?</strong><span>Poradnik: budżet wesela na 50, 80 i 100 osób – ślub i wesele.</span></span></a>
+    </div>
+  </section>
+  <section class="grupa">
+    <h2>Święta</h2>
+    <div class="tools">
+      <a href="kalkulator-budzetu-swiat.html" data-szukaj="kalkulator budżetu na święta prezenty, wigilia, dojazdy i ile odkładać co tydzień do 24 grudnia. święta boże narodzenie prezenty wigilia grudzień"><span class="ico" data-ico="swieta"></span><span><strong>Kalkulator budżetu na święta</strong><span>Prezenty, Wigilia, dojazdy i ile odkładać co tydzień do 24 grudnia.</span></span></a>
+    </div>
+  </section>
+  <section class="grupa">
+    <h2>Dom i codzienne sprawy</h2>
+    <div class="tools">
+      <a href="kalkulator-dni.html" data-szukaj="kalkulator dni dni między datami i dni robocze ze świętami. dni daty urlop dni robocze kalendarz"><span class="ico" data-ico="dni"></span><span><strong>Kalkulator dni</strong><span>Dni między datami i dni robocze ze świętami.</span></span></a>
+      <a href="poradnik-budzet-domowy.html" data-szukaj="budżet domowy 50/30/20 podziel pensję na potrzeby, przyjemności i oszczędności. budżet domowy oszczędzanie 50/30/20 pensja"><span class="ico g" data-ico="budzet"></span><span><strong>Budżet domowy 50/30/20</strong><span>Podziel pensję na potrzeby, przyjemności i oszczędności.</span></span></a>
+    </div>
+  </section>
+  <p id="brak">Nie znaleziono kalkulatora. Spróbuj innego słowa, np. „kredyt”, „oszczędności” albo „dni”.</p>
   <h2 id="poradniki">Poradniki</h2>
   <div class="tools">
-    <a href="poradnik-budzet-domowy.html"><strong>Jak prowadzić budżet domowy?</strong><span>Zasada 50/30/20 krok po kroku, z kalkulatorem.</span></a>
-    <a href="poradnik-kula-sniezna.html"><strong>Metoda kuli śnieżnej</strong><span>Jak spłacić kilka długów – przykład na liczbach.</span></a>
-    <a href="poradnik-ile-kosztuje-wesele.html"><strong>Ile kosztuje wesele?</strong><span>Jak policzyć budżet wesela na 50, 80 i 100 osób.</span></a>
+    <a href="poradnik-budzet-domowy.html"><span class="ico g" data-ico="poradnik"></span><span><strong>Jak prowadzić budżet domowy?</strong><span>Zasada 50/30/20 krok po kroku, z kalkulatorem.</span></span></a>
+    <a href="poradnik-kula-sniezna.html"><span class="ico g" data-ico="poradnik"></span><span><strong>Metoda kuli śnieżnej</strong><span>Jak spłacić kilka długów – przykład na liczbach.</span></span></a>
+    <a href="poradnik-ile-kosztuje-wesele.html"><span class="ico g" data-ico="poradnik"></span><span><strong>Ile kosztuje wesele?</strong><span>Jak policzyć budżet wesela na 50, 80 i 100 osób.</span></span></a>
   </div>
+  <section id="planery">
+  <h2 id="planery-tytul">Gotowe planery Planfox</h2>
+  <p class="lead">Arkusze Excel i PDF-y do druku. Płacisz raz, pobierasz od razu – bez abonamentu.</p>
+  <div class="zakladki" role="tablist" aria-label="Kategorie planerów">
+    <button type="button" role="tab" id="t-finanse" aria-controls="p-finanse" aria-selected="false">Finanse domowe</button>
+    <button type="button" role="tab" id="t-slub" aria-controls="p-slub" aria-selected="false">Ślub</button>
+    <button type="button" role="tab" id="t-swieta" aria-controls="p-swieta" aria-selected="false">Święta</button>
+    <button type="button" role="tab" id="t-dom" aria-controls="p-dom" aria-selected="false">Dom i rodzina</button>
+    <button type="button" role="tab" id="t-pakiety" aria-controls="p-pakiety" aria-selected="false">Pakiety (taniej)</button>
+  </div>
+    <div class="produkty" role="tabpanel" id="p-finanse" aria-labelledby="t-finanse" hidden>
+      <a class="prod" href="https://payhip.com/b/LKbR5" rel="noopener"><span class="znak">Promocja</span><img src="img/okladki/budzet.jpg" width="640" height="400" alt="Planer budżetu domowego – okładka" loading="lazy"><div><strong>Planer budżetu domowego</strong><small>Excel i Google Sheets · 12 miesięcy</small><span class="cena">19 zł<s>29 zł</s></span></div></a>
+      <a class="prod" href="https://payhip.com/b/W7R4U" rel="noopener"><span class="znak">Promocja</span><img src="img/okladki/dlugi.jpg" width="640" height="400" alt="Planer spłaty długów – okładka" loading="lazy"><div><strong>Planer spłaty długów</strong><small>Excel · lawina i kula śnieżna</small><span class="cena">19 zł<s>29 zł</s></span></div></a>
+      <a class="prod" href="https://payhip.com/b/BV1tF" rel="noopener"><img src="img/okladki/oszczedzanie.jpg" width="640" height="400" alt="Wyzwania oszczędnościowe – okładka" loading="lazy"><div><strong>Wyzwania oszczędnościowe</strong><small>PDF · 100 kopert, 52 tygodnie</small><span class="cena">15 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/zGobP" rel="noopener"><img src="img/okladki/ike.jpg" width="640" height="400" alt="IKE i IKZE bez tajemnic – okładka" loading="lazy"><div><strong>IKE i IKZE bez tajemnic</strong><small>Poradnik PDF z kartami pracy</small><span class="cena">19 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/OZT63" rel="noopener"><img src="img/okladki/dlugi-poradnik.jpg" width="640" height="400" alt="Jak spłacić długi szybciej – okładka" loading="lazy"><div><strong>Jak spłacić długi szybciej</strong><small>Poradnik PDF + karty pracy</small><span class="cena">19 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/4CrEi" rel="noopener"><img src="img/okladki/cele.jpg" width="640" height="400" alt="Planer celów „Mój najlepszy rok” – okładka" loading="lazy"><div><strong>Planer celów „Mój najlepszy rok”</strong><small>PDF do druku i wypełnienia</small><span class="cena">15 zł</span></div></a>
+    </div>
+    <div class="produkty" role="tabpanel" id="p-slub" aria-labelledby="t-slub" hidden>
+      <a class="prod" href="https://payhip.com/b/cf8Gr" rel="noopener"><span class="znak">Promocja</span><img src="img/okladki/slub.jpg" width="640" height="400" alt="Planer ślubu i wesela – okładka" loading="lazy"><div><strong>Planer ślubu i wesela</strong><small>Excel · budżet, goście z RSVP, zadania</small><span class="cena">19 zł<s>29 zł</s></span></div></a>
+      <a class="prod" href="https://payhip.com/b/GQplx" rel="noopener"><img src="img/okladki/slub-checklista.jpg" width="640" height="400" alt="Checklista ślubna – okładka" loading="lazy"><div><strong>Checklista ślubna</strong><small>PDF · harmonogram 12 miesięcy</small><span class="cena">15 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/LthYy" rel="noopener"><img src="img/okladki/pakiet-slub.jpg" width="640" height="400" alt="Pakiet Ślub i podróż poślubna – okładka" loading="lazy"><div><strong>Pakiet Ślub i podróż poślubna</strong><small>2 PDF: checklista + plan podróży</small><span class="cena">19 zł</span></div></a>
+    </div>
+    <div class="produkty" role="tabpanel" id="p-swieta" aria-labelledby="t-swieta" hidden>
+      <a class="prod" href="https://payhip.com/b/pY3ba" rel="noopener"><img src="img/okladki/swieta.jpg" width="640" height="400" alt="Planer świąt – okładka" loading="lazy"><div><strong>Planer świąt</strong><small>PDF · prezenty, budżet, menu wigilijne</small><span class="cena">12 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/LlbpU" rel="noopener"><img src="img/okladki/gry-swiateczne.jpg" width="640" height="400" alt="Gry świąteczne do druku – okładka" loading="lazy"><div><strong>Gry świąteczne do druku</strong><small>Bingo, quiz, kalambury</small><span class="cena">15 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/hsFmk" rel="noopener"><img src="img/okladki/pakiet-swieta.jpg" width="640" height="400" alt="Pakiet Święta bez stresu – okładka" loading="lazy"><div><strong>Pakiet Święta bez stresu</strong><small>Planer świąt + planer posiłków</small><span class="cena">17 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/mJsfo" rel="noopener"><img src="img/okladki/kalendarz.jpg" width="640" height="400" alt="Kalendarz 2027 do druku – okładka" loading="lazy"><div><strong>Kalendarz 2027 do druku</strong><small>Rok na stronie + 12 miesięcy</small><span class="cena">15 zł</span></div></a>
+    </div>
+    <div class="produkty" role="tabpanel" id="p-dom" aria-labelledby="t-dom" hidden>
+      <a class="prod" href="https://payhip.com/b/jJDat" rel="noopener"><img src="img/okladki/dziecko.jpg" width="640" height="400" alt="Planer ciąży i pierwszego roku – okładka" loading="lazy"><div><strong>Planer ciąży i pierwszego roku</strong><small>PDF · wyprawka, karmienie, sen</small><span class="cena">19 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/hIzDJ" rel="noopener"><img src="img/okladki/przeprowadzka.jpg" width="640" height="400" alt="Planer przeprowadzki – okładka" loading="lazy"><div><strong>Planer przeprowadzki</strong><small>PDF · plan od 8 tygodni przed</small><span class="cena">15 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/k9usB" rel="noopener"><img src="img/okladki/sprzatanie.jpg" width="640" height="400" alt="Planer sprzątania – okładka" loading="lazy"><div><strong>Planer sprzątania</strong><small>PDF · dzień, tydzień, miesiąc</small><span class="cena">12 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/l0957" rel="noopener"><img src="img/okladki/posilki.jpg" width="640" height="400" alt="Planer posiłków i lista zakupów – okładka" loading="lazy"><div><strong>Planer posiłków i lista zakupów</strong><small>PDF · menu tygodnia</small><span class="cena">12 zł</span></div></a>
+    </div>
+    <div class="produkty" role="tabpanel" id="p-pakiety" aria-labelledby="t-pakiety" hidden>
+      <a class="prod" href="https://payhip.com/b/6YS8h" rel="noopener"><span class="znak">Promocja</span><img src="img/okladki/wszystkie.jpg" width="640" height="400" alt="Wszystkie planery Planfox – okładka" loading="lazy"><div><strong>Wszystkie planery Planfox</strong><small>5 planerów Excel, PL + EN</small><span class="cena">59 zł<s>79 zł</s></span></div></a>
+      <a class="prod" href="https://payhip.com/b/NrOoF" rel="noopener"><span class="znak">Promocja</span><img src="img/okladki/finanse-excel.jpg" width="640" height="400" alt="Pakiet Finanse pod kontrolą – okładka" loading="lazy"><div><strong>Pakiet Finanse pod kontrolą</strong><small>Excel: budżet + spłata długów</small><span class="cena">29 zł<s>39 zł</s></span></div></a>
+      <a class="prod" href="https://payhip.com/b/y630Y" rel="noopener"><img src="img/okladki/finanse-pdf.jpg" width="640" height="400" alt="Pakiet Finanse domowe – okładka" loading="lazy"><div><strong>Pakiet Finanse domowe</strong><small>4 PDF: budżet, długi, oszczędzanie, IKE</small><span class="cena">39 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/LthYy" rel="noopener"><img src="img/okladki/pakiet-slub.jpg" width="640" height="400" alt="Pakiet Ślub i podróż poślubna – okładka" loading="lazy"><div><strong>Pakiet Ślub i podróż poślubna</strong><small>2 PDF</small><span class="cena">19 zł</span></div></a>
+      <a class="prod" href="https://payhip.com/b/hsFmk" rel="noopener"><img src="img/okladki/pakiet-swieta.jpg" width="640" height="400" alt="Pakiet Święta bez stresu – okładka" loading="lazy"><div><strong>Pakiet Święta bez stresu</strong><small>2 PDF</small><span class="cena">17 zł</span></div></a>
+    </div>
+  <p class="wiecej"><a class="btn-link" href="https://payhip.com/PlanFoxShop" rel="noopener">Zobacz wszystkie planery w sklepie →</a></p>
+  </section>
   <div id="cta"></div>
 </main>
 <footer></footer>
+<script>
+// Wyszukiwarka: filtruje kafelki kalkulatorów na bieżąco.
+const pole = document.getElementById("szukaj");
+const bezOgonkow = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l");
+pole.addEventListener("input", () => {
+  const q = bezOgonkow(pole.value.trim());
+  let ile = 0;
+  document.querySelectorAll(".grupa").forEach(g => {
+    let w = 0;
+    g.querySelectorAll("a[data-szukaj]").forEach(a => { const ok = !q || bezOgonkow(a.dataset.szukaj).includes(q); a.hidden = !ok; if (ok) w++; });
+    g.hidden = !w; ile += w;
+  });
+  document.getElementById("brak").style.display = ile ? "none" : "block";
+});
+// Zakładki planerów. W sezonie świątecznym domyślnie „Święta”.
+const zakladki = [...document.querySelectorAll(".zakladki button")];
+function pokaz(b) {
+  zakladki.forEach(x => { const on = x === b; x.setAttribute("aria-selected", on); document.getElementById(x.getAttribute("aria-controls")).hidden = !on; });
+}
+zakladki.forEach(b => b.addEventListener("click", () => pokaz(b)));
+pokaz(document.getElementById(SEZON_SWIETA ? "t-swieta" : "t-finanse"));
+</script>
 </body>
 </html>

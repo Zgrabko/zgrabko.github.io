@@ -65,8 +65,12 @@
 }
 </script>
 <!-- /SEO -->
-<link rel="stylesheet" href="style.css">
-<script src="wspolne.js"></script>
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3e">
+<script src="wspolne.js?v=2"></script>
 </head>
 <body>
 <header></header>
@@ -83,6 +87,7 @@
       <div><label for="rodzaj">Rodzaj rat</label><select id="rodzaj"><option value="rowne">równe (annuitetowe)</option><option value="malejace">malejące</option></select></div>
     </div>
     <div class="result" id="wynik"></div>
+    <div class="wykres" id="wykres"></div>
   </div>
   <div id="cta"></div>
   <section class="faq">
@@ -96,7 +101,7 @@
 <script>
 function licz(){
   const K = num("kwota"), r = num("opr")/100/12, n = Math.round(num("lata")*12), rodzaj = document.getElementById("rodzaj").value;
-  if (!K || !n) { document.getElementById("wynik").innerHTML = "Uzupełnij kwotę i okres."; return; }
+  if (!K || !n) { document.getElementById("wynik").innerHTML = "Uzupełnij kwotę i okres."; pasek(document.getElementById("wykres"), []); return; }
   let html, suma;
   if (rodzaj === "rowne") {
     const rata = r ? K*r/(1-Math.pow(1+r,-n)) : K/n; suma = rata*n;
@@ -107,6 +112,7 @@ function licz(){
   }
   document.getElementById("wynik").innerHTML = html + `<table><tr><td>Liczba rat</td><td>${n}</td></tr>
     <tr><td>Odsetki łącznie</td><td>${zl(suma-K)}</td></tr><tr><td>Do spłaty łącznie</td><td>${zl(suma)}</td></tr></table>`;
+  pasek(document.getElementById("wykres"), [["Kapitał", K], ["Odsetki", suma-K]]);
 }
 document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
 </script>

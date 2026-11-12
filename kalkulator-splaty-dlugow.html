@@ -89,8 +89,12 @@
 }
 </script>
 <!-- /SEO -->
-<link rel="stylesheet" href="style.css">
-<script src="wspolne.js"></script>
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3e">
+<script src="wspolne.js?v=2"></script>
 <style>
 .dlug{display:grid;grid-template-columns:1.4fr 1fr .8fr 1fr 32px;gap:8px;align-items:end;margin-top:8px}
 .dlug label{font-size:.85rem;margin:0 0 2px}
@@ -116,6 +120,7 @@ button.dodaj{margin-top:12px;padding:9px 14px;border:1px dashed var(--accent);ba
     <input id="budzet" type="number" inputmode="decimal" value="1500" min="0" step="50">
     <p style="margin:6px 0 0;color:var(--muted);font-size:.9rem" id="info-min"></p>
     <div class="result" id="wynik"></div>
+    <div class="wykres" id="wykres"></div>
   </div>
   <div id="cta"></div>
   <section class="faq">
@@ -152,7 +157,7 @@ document.getElementById("dodaj").addEventListener("click", () => { dodajWiersz([
 // Symulacja miesiąc po miesiącu. kolejnosc = indeksy długów, na które po kolei idzie nadwyżka.
 function symuluj(dlugi, budzet, kolejnosc){
   const saldo = dlugi.map(d => d.saldo), sp = dlugi.map(() => 0);
-  let odsetki = 0, m = 0;
+  let odsetki = 0, m = 0; const hist = [saldo.reduce((a, b) => a + b, 0)];
   while (saldo.some(s => s > 0.005) && m < 600) {
     m++;
     dlugi.forEach((d, i) => { if (saldo[i] > 0) { const o = saldo[i] * d.opr / 1200; saldo[i] += o; odsetki += o; } });
@@ -160,8 +165,9 @@ function symuluj(dlugi, budzet, kolejnosc){
     dlugi.forEach((d, i) => { const p = Math.min(d.rata, saldo[i]); saldo[i] -= p; zostalo -= p; });
     for (const i of kolejnosc) { if (zostalo <= 0) break; const p = Math.min(zostalo, saldo[i]); saldo[i] -= p; zostalo -= p; }
     dlugi.forEach((d, i) => { if (saldo[i] <= 0.005 && !sp[i]) { saldo[i] = 0; sp[i] = m; } });
+    hist.push(Math.max(0, saldo.reduce((a, b) => a + b, 0)));
   }
-  return { mies: m, odsetki, sp, ok: !saldo.some(s => s > 0.005) };
+  return { mies: m, odsetki, sp, hist, ok: !saldo.some(s => s > 0.005) };
 }
 const dataPo = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString("pl-PL", { month: "long", year: "numeric" }); };
 const czas = m => { const l = Math.floor(m / 12), r = m % 12; return [l ? l + (l === 1 ? " rok" : l < 5 ? " lata" : " lat") : "", r ? r + " mies." : ""].filter(Boolean).join(" ") || "0 mies."; };
@@ -171,7 +177,8 @@ function licz(){
     const v = s => parseFloat(String(w.querySelector(s).value).replace(",", ".")) || 0;
     return { nazwa: w.querySelector("input[type=text]").value.trim() || `Dług ${k + 1}`, saldo: v("[id^=s]"), opr: v("[id^=o]"), rata: v("[id^=r]") };
   }).filter(d => d.saldo > 0);
-  const el = document.getElementById("wynik"), budzet = num("budzet");
+  const el = document.getElementById("wynik"), budzet = num("budzet"), wyk = document.getElementById("wykres");
+  wyk.innerHTML = "";
   const sumaMin = dlugi.reduce((a, d) => a + d.rata, 0), sumaSald = dlugi.reduce((a, d) => a + d.saldo, 0);
   document.getElementById("info-min").textContent = dlugi.length ? `Suma rat minimalnych: ${zl(sumaMin)}. Wszystko powyżej to nadwyżka na szybszą spłatę.` : "";
   if (!dlugi.length) { el.innerHTML = "Wpisz saldo przynajmniej jednego długu."; return; }
@@ -196,6 +203,10 @@ function licz(){
   el.innerHTML = `<div class="big">${dataPo(Math.min(kula.mies, lawina.mies))}</div><div>tak wcześnie możesz być bez długów (${zl(sumaSald)} do spłaty)</div>
     <div class="porownanie">${blok("Kula śnieżna", kula)}${blok("Lawina", lawina)}</div>
     <p style="margin:12px 0 0">${wniosek}</p><p style="margin:8px 0 0">${minTxt}</p>`;
+  const dl = Math.max(kula.mies, lawina.mies, minimum.ok ? minimum.mies : 0);
+  wykresLinii(wyk, [{ nazwa: "Kula śnieżna", kolor: "#1f6feb", dane: kula.hist }, { nazwa: "Lawina", kolor: "#0f9d58", dane: lawina.hist, kreski: true },
+    ...(budzet - sumaMin > 0.005 && minimum.ok ? [{ nazwa: "Tylko raty minimalne", kolor: "#7d8590", dane: minimum.hist }] : [])].map(s => ({ ...s, dane: s.dane.slice(0, dl + 1) })),
+    i => i ? i + " mies." : "dziś");
 }
 document.getElementById("budzet").addEventListener("input", licz); licz();
 </script>

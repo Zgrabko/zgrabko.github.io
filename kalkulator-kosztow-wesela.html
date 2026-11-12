@@ -89,8 +89,12 @@
 }
 </script>
 <!-- /SEO -->
-<link rel="stylesheet" href="style.css">
-<script src="wspolne.js"></script>
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3e">
+<script src="wspolne.js?v=2"></script>
 </head>
 <body>
 <header></header>
@@ -134,6 +138,7 @@
       <div><label for="koperty">Spodziewane koperty od gości (zł, opcjonalnie)</label><input id="koperty" type="number" inputmode="decimal" value="0" min="0" step="500"></div>
     </div>
     <div class="result" id="wynik"></div>
+    <div class="wykres" id="wykres"></div>
   </div>
   <div id="cta"></div>
   <section class="faq">
@@ -164,7 +169,8 @@ function licz(){
     ["Stroje, fryzura, makijaż", num("stroje")], ["Obrączki", num("obraczki")], ["Tort i słodki stół", num("tort")], ["Ślub, transport, inne", num("inne")]];
   const baza = kat.reduce((a, k) => a + k[1], 0), bufor = baza * num("bufor") / 100, suma = baza + bufor;
   const el = document.getElementById("wynik");
-  if (suma <= 0) { el.innerHTML = "Wpisz liczbę gości i ceny."; return; }
+  pasek(document.getElementById("wykres"), kat);
+  if (suma <= 0) { el.innerHTML = "Wpisz liczbę gości i ceny."; pasek(document.getElementById("wykres"), []); return; }
   const odl = num("odlozone"), kop = num("koperty"), brak = Math.max(0, suma - odl);
   let plan = "";
   if (dataEl.value) {
