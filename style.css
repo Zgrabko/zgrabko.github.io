@@ -1,4 +1,4 @@
-/* Wiewio – wspólny wygląd. Kolory jak na okładkach: niebieski, zielony, granat. Jedna czcionka systemowa (szybko). */
+/* Zgrabko – wspólny wygląd. Kolory jak na okładkach: niebieski, zielony, granat. Jedna czcionka systemowa (szybko). */
 :root{--bg:#f4f6fb;--card:#fff;--text:#14213d;--muted:#56627a;--accent:#1f6feb;--accent2:#0f9d58;--navy:#0d1b3e;--navy2:#13306b;
   --border:#dfe5f0;--soft:#eef3fd;--soft2:#e9f7f0;--shadow:0 1px 2px rgba(13,27,62,.06),0 6px 20px rgba(13,27,62,.06);--warn:#c0392b}
 @media (prefers-color-scheme:dark){:root{--bg:#0b1020;--card:#141b2d;--text:#e7ebf3;--muted:#9aa6bd;--accent:#5b9bff;--accent2:#3ccf7f;

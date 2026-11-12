@@ -1,11 +1,11 @@
 // Wspólne elementy: nagłówek, stopka, CTA produktu i formatowanie kwot.
-// Sklep Wiewio na Payhip (ceny w PLN). Każdy kalkulator poleca najbliższy tematycznie produkt.
+// Sklep Zgrabko na Payhip (ceny w PLN). Każdy kalkulator poleca najbliższy tematycznie produkt.
 // Adres strony – jedno miejsce w JS. W HTML (canonical, og:url, JSON-LD, sitemap, robots) zmiana jednym poleceniem:
-// sed -i "s#https://planfoxshop.github.io/#NOWY_ADRES/#g" *.html sitemap.xml robots.txt wspolne.js
+// python pliki/zmien-adres-strony.py  (planfoxshop.github.io -> zgrabko.github.io; najpierw --sprawdz)
 const ADRES = "https://planfoxshop.github.io/";
 const SKLEP = "https://payhip.com/PlanFoxShop";
 const P = {
-  sklep: { url: SKLEP, tytul: "Gotowe planery i poradniki Wiewio",
+  sklep: { url: SKLEP, tytul: "Gotowe planery i poradniki Zgrabko",
     opis: "Arkusze Excel i PDF-y do druku: budżet, spłata długów, oszczędzanie, IKE/IKZE, JDG, najem, ślub, podróże i święta. Od 12 zł, pobierasz od razu po zakupie.", btn: "Przejdź do sklepu" },
   budzet: { url: "https://payhip.com/b/LKbR5", tytul: "Chcesz panować nad domowym budżetem?",
     opis: "Gotowy planer budżetu w Excelu: wydatki, oszczędności, cele i wykresy. Wpisujesz kwoty, resztę liczy sam.", btn: "Zobacz planer budżetu" },
@@ -53,7 +53,7 @@ const IKONY = {
   ok: '<path d="M5 12l5 5 9-10"/>',
 };
 const ikona = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IKONY[n] || ""}</svg>`;
-const LOGO = '<svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f6feb"/><stop offset="1" stop-color="#0f9d58"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#wg)"/><path d="M35 52 C50 54 59 42 56 28 C53 14 40 9 33 16 C28 21 31 29 38 28 C45 27 46 35 41 39 C37 42 35 46 35 52Z" fill="#ffe2b8"/><ellipse cx="27" cy="42" rx="10" ry="11" fill="#fff"/><circle cx="22" cy="26" r="8.5" fill="#fff"/><ellipse cx="16.5" cy="28" rx="5.5" ry="4.2" fill="#fff"/><path d="M17.5 20 L20 12.5 L25 19 Z" fill="#fff"/><ellipse cx="27" cy="53" rx="10" ry="2.6" fill="#fff"/><circle cx="19.5" cy="25" r="1.8" fill="#0d1b3e"/><circle cx="11.6" cy="27.6" r="1.4" fill="#0d1b3e"/><ellipse cx="19" cy="39" rx="4.2" ry="3.6" fill="#f2a900"/><path d="M15.5 37.5 Q19 34.5 22.5 37.5" fill="none" stroke="#8a5a00" stroke-width="1.2"/></svg>';
+const LOGO = '<svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="zg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f6feb"/><stop offset="1" stop-color="#0f9d58"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#zg)"/><path d="M17 33.5l10 10 20-22" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="49" cy="15" r="4" fill="#f2a900"/></svg>';
 
 // Katalog kalkulatorów: menu w nagłówku i stopka.
 const KATALOG = [
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const strona = location.pathname.split("/").pop().replace(".html", "");
   const h = document.querySelector("header");
   if (h) {
-    h.innerHTML = `<div class="wrap"><a class="logo" href="index.html">${LOGO}Wiewio</a>
+    h.innerHTML = `<div class="wrap"><a class="logo" href="index.html">${LOGO}Zgrabko</a>
     <nav aria-label="Menu"><details class="menu"><summary>Kalkulatory</summary><div class="panel"><div class="wrap">${KATALOG.map(([g, l]) =>
       `<div><strong>${g}</strong>${l.map(([u, n, i]) => `<a href="${u}.html">${ikona(i)}${n}</a>`).join("")}</div>`).join("")}</div></div></details>
     <a href="index.html#poradniki">Poradniki</a><a href="index.html#planery">Planery</a><a class="sklep" href="${SKLEP}" rel="noopener">Sklep</a></nav></div>`;
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <p>Policz budżet na prezenty i Wigilię, zaplanuj grudzień i przygotuj zabawy dla całej rodziny.</p>
     <div class="linki"><a href="kalkulator-budzetu-swiat.html">Kalkulator budżetu świąt</a><a href="https://payhip.com/b/pY3ba" rel="noopener">Planer świąt · 12 zł</a>
     <a class="jasny" href="https://payhip.com/b/LlbpU" rel="noopener">Gry świąteczne · 15 zł</a><a class="jasny" href="https://payhip.com/b/hsFmk" rel="noopener">Pakiet świąteczny · 17 zł</a></div></div>
-    <img src="img/okladki/swieta.jpg" width="640" height="400" alt="Planer świąt Wiewio do druku" loading="lazy"></section>`;
+    <img src="img/okladki/swieta.jpg" width="640" height="400" alt="Planer świąt Zgrabko do druku" loading="lazy"></section>`;
   document.querySelectorAll("[data-ico]").forEach(e => e.innerHTML = ikona(e.dataset.ico));
   const c = document.getElementById("cta");
   const p = P[CTA_STRONY[strona] || "budzet"];
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <p style="margin:6px 0 0">${p.opis}</p>
     <a class="btn" href="${p.url}" rel="noopener">${p.btn} →</a>
     ${p.extra ? `<p style="margin:10px 0 0;font-size:.9rem"><a href="${p.extra.url}" rel="noopener" style="color:inherit">${p.extra.txt} →</a></p>` : ""}
-    ${p.url === SKLEP ? "" : `<p style="margin:10px 0 0;font-size:.9rem"><a href="${SKLEP}" rel="noopener" style="color:inherit">Wszystkie planery Wiewio →</a></p>`}</div>`;
+    ${p.url === SKLEP ? "" : `<p style="margin:10px 0 0;font-size:.9rem"><a href="${SKLEP}" rel="noopener" style="color:inherit">Wszystkie planery Zgrabko →</a></p>`}</div>`;
   // „Kopiuj wynik” pod każdym wynikiem kalkulatora
   document.querySelectorAll("main .result").forEach(r => {
     const a = document.createElement("div"); a.className = "akcje";
@@ -145,9 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const f = document.querySelector("footer");
   const kalk = KATALOG.flatMap(g => g[1]).filter(k => k[0].startsWith("kalkulator"));
   if (f) f.innerHTML = `<div class="wrap"><div class="kolumny">
-    <div><a class="logo" href="index.html">${LOGO}Wiewio</a><p style="margin:10px 0 0">Darmowe kalkulatory finansowe i gotowe planery do domowego budżetu, ślubu i świąt.</p></div>
+    <div><a class="logo" href="index.html">${LOGO}Zgrabko</a><p style="margin:10px 0 0">Darmowe kalkulatory finansowe i gotowe planery do domowego budżetu, ślubu i świąt.</p></div>
     <div><strong>Kalkulatory</strong>${kalk.slice(0, 6).map(([u, n]) => `<a href="${u}.html">${n}</a>`).join("")}</div>
     <div><strong>Więcej kalkulatorów</strong>${kalk.slice(6).map(([u, n]) => `<a href="${u}.html">${n}</a>`).join("")}</div>
-    <div><strong>Poradniki i sklep</strong>${PORADNIKI.map(([u, n]) => `<a href="${u}.html">${n}</a>`).join("")}<a href="index.html#planery">Gotowe planery</a><a href="${SKLEP}" rel="noopener">Sklep Wiewio (Payhip)</a></div>
-    </div><div class="dol">© ${new Date().getFullYear()} Wiewio · Wyniki mają charakter poglądowy i nie są poradą finansową.</div></div>`;
+    <div><strong>Poradniki i sklep</strong>${PORADNIKI.map(([u, n]) => `<a href="${u}.html">${n}</a>`).join("")}<a href="index.html#planery">Gotowe planery</a><a href="${SKLEP}" rel="noopener">Sklep Zgrabko (Payhip)</a></div>
+    </div><div class="dol">© ${new Date().getFullYear()} Zgrabko · Wyniki mają charakter poglądowy i nie są poradą finansową.</div></div>`;
 });
