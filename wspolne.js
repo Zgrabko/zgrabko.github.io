@@ -3,7 +3,7 @@
 // Adres strony – jedno miejsce w JS. W HTML (canonical, og:url, JSON-LD, sitemap, robots) zmiana jednym poleceniem:
 // python pliki/zmien-adres-strony.py  (planfoxshop.github.io -> zgrabko.github.io; najpierw --sprawdz)
 const ADRES = "https://zgrabko.github.io/";
-const SKLEP = "https://payhip.com/PlanFoxShop";
+const SKLEP = "https://payhip.com/Zgrabko";
 const P = {
   sklep: { url: SKLEP, tytul: "Gotowe planery i poradniki Zgrabko",
     opis: "Arkusze Excel i PDF-y do druku: budżet, spłata długów, oszczędzanie, IKE/IKZE, JDG, najem, ślub, podróże i święta. Od 12 zł, pobierasz od razu po zakupie.", btn: "Przejdź do sklepu" },
