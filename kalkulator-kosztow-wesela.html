@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulator kosztów wesela 2026/2027 – ile kosztuje wesele | Planfox</title>
+<meta name="description" content="Kalkulator wesela: policz koszt wesela na 50, 80 czy 100 osób – menu od osoby, sala, zespół, fotograf, stroje. Koszt na gościa i ile odkładać co miesiąc.">
+<!-- SEO -->
+<link rel="canonical" href="https://planfoxshop.github.io/kalkulator-kosztow-wesela.html">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Planfox">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kalkulator kosztów wesela 2026/2027 – ile kosztuje wesele">
+<meta property="og:description" content="Kalkulator wesela: policz koszt wesela na 50, 80 czy 100 osób – menu od osoby, sala, zespół, fotograf, stroje. Koszt na gościa i ile odkładać co miesiąc.">
+<meta property="og:url" content="https://planfoxshop.github.io/kalkulator-kosztow-wesela.html">
+<meta property="og:image" content="https://planfoxshop.github.io/img/slub-PL.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kalkulator kosztów wesela 2026/2027 – ile kosztuje wesele">
+<meta name="twitter:description" content="Kalkulator wesela: policz koszt wesela na 50, 80 czy 100 osób – menu od osoby, sala, zespół, fotograf, stroje. Koszt na gościa i ile odkładać co miesiąc.">
+<meta name="twitter:image" content="https://planfoxshop.github.io/img/slub-PL.jpg">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Planfox",
+     "item": "https://planfoxshop.github.io/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Kalkulator kosztów wesela",
+     "item": "https://planfoxshop.github.io/kalkulator-kosztow-wesela.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Ile kosztuje wesele na 50, 80 lub 100 osób?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Największa część kosztu to menu liczone od osoby, więc wesele rośnie razem z listą gości. Wzór: liczba gości × (menu + napoje na osobę) + usługi stałe (zespół, fotograf, stroje, dekoracje). Ceny mocno różnią się między regionami i terminami, dlatego wpisz oferty z Twojej okolicy, a kalkulator pokaże całość."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Jak policzyć koszt wesela na jednego gościa?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Podziel cały koszt wesela przez liczbę gości. To więcej niż sama cena menu, bo na każdego gościa przypada też część kosztów stałych: zespołu, fotografa czy dekoracji."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Ile odkładać miesięcznie na wesele?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Od kosztu wesela odejmij to, co już masz odłożone, i podziel przez liczbę pełnych miesięcy do ślubu. Przykład: 60 000 zł, 15 000 zł odłożone i 18 miesięcy to 2500 zł miesięcznie."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Czy wliczać koperty od gości?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ostrożnie. Koperty dostajecie dopiero po weselu, a zaliczki i większość płatności trzeba zapłacić wcześniej. Kalkulator pokazuje je osobno, a kwotę do odkładania liczy bez nich."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Ile kosztuje ślub w urzędzie stanu cywilnego?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Opłata skarbowa za sporządzenie aktu małżeństwa wynosi 84 zł. Ślub poza urzędem albo ślub kościelny to dodatkowe koszty – wpisz je w polu „Ślub, transport, zaproszenia, inne”."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<!-- /SEO -->
+<link rel="stylesheet" href="style.css">
+<script src="wspolne.js"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>Kalkulator kosztów wesela</h1>
+  <p class="lead">Wpisz liczbę gości i oferty usługodawców. Zobaczysz koszt całego wesela, koszt na jednego gościa i ile odkładać co miesiąc do dnia ślubu.</p>
+  <div class="card">
+    <h2 style="margin:0;font-size:1.15rem">Goście i sala</h2>
+    <div class="row">
+      <div><label for="goscie">Liczba gości (z parą młodą)</label><input id="goscie" type="number" inputmode="numeric" value="80" min="0" step="1"></div>
+      <div><label for="naosobe">Menu – cena za osobę (zł)</label><input id="naosobe" type="number" inputmode="decimal" value="250" min="0" step="10"></div>
+    </div>
+    <div class="row">
+      <div><label for="alkohol">Alkohol i napoje na osobę (zł, jeśli poza menu)</label><input id="alkohol" type="number" inputmode="decimal" value="50" min="0" step="5"></div>
+      <div><label for="sala">Sala – opłata stała (zł)</label><input id="sala" type="number" inputmode="decimal" value="0" min="0" step="100"></div>
+    </div>
+    <h2 style="margin:18px 0 0;font-size:1.15rem">Usługi i dodatki</h2>
+    <div class="row">
+      <div><label for="muzyka">Zespół lub DJ (zł)</label><input id="muzyka" type="number" inputmode="decimal" value="6000" min="0" step="100"></div>
+      <div><label for="foto">Fotograf (zł)</label><input id="foto" type="number" inputmode="decimal" value="5000" min="0" step="100"></div>
+    </div>
+    <div class="row">
+      <div><label for="video">Kamerzysta (zł)</label><input id="video" type="number" inputmode="decimal" value="0" min="0" step="100"></div>
+      <div><label for="dekor">Dekoracje i kwiaty (zł)</label><input id="dekor" type="number" inputmode="decimal" value="3000" min="0" step="100"></div>
+    </div>
+    <div class="row">
+      <div><label for="stroje">Stroje, fryzura, makijaż (zł)</label><input id="stroje" type="number" inputmode="decimal" value="6000" min="0" step="100"></div>
+      <div><label for="obraczki">Obrączki (zł)</label><input id="obraczki" type="number" inputmode="decimal" value="3000" min="0" step="100"></div>
+    </div>
+    <div class="row">
+      <div><label for="tort">Tort i słodki stół (zł)</label><input id="tort" type="number" inputmode="decimal" value="1500" min="0" step="100"></div>
+      <div><label for="inne">Ślub, transport, zaproszenia, inne (zł)</label><input id="inne" type="number" inputmode="decimal" value="2500" min="0" step="100"></div>
+    </div>
+    <h2 style="margin:18px 0 0;font-size:1.15rem">Plan oszczędzania</h2>
+    <div class="row">
+      <div><label for="bufor">Zapas na nieprzewidziane (%)</label><input id="bufor" type="number" inputmode="decimal" value="10" min="0" max="50" step="1"></div>
+      <div><label for="data">Data wesela</label><input id="data" type="date"></div>
+    </div>
+    <div class="row">
+      <div><label for="odlozone">Już odłożone (zł)</label><input id="odlozone" type="number" inputmode="decimal" value="10000" min="0" step="500"></div>
+      <div><label for="koperty">Spodziewane koperty od gości (zł, opcjonalnie)</label><input id="koperty" type="number" inputmode="decimal" value="0" min="0" step="500"></div>
+    </div>
+    <div class="result" id="wynik"></div>
+  </div>
+  <div id="cta"></div>
+  <section class="faq">
+    <h2>Koszt wesela – najczęstsze pytania</h2>
+    <h3>Ile kosztuje wesele na 50, 80 lub 100 osób?</h3><p>Największa część kosztu to menu liczone od osoby, więc wesele rośnie razem z listą gości. Wzór: liczba gości × (menu + napoje na osobę) + usługi stałe (zespół, fotograf, stroje, dekoracje). Ceny mocno różnią się między regionami i terminami, dlatego wpisz oferty z Twojej okolicy, a kalkulator pokaże całość.</p>
+    <h3>Jak policzyć koszt wesela na jednego gościa?</h3><p>Podziel cały koszt wesela przez liczbę gości. To więcej niż sama cena menu, bo na każdego gościa przypada też część kosztów stałych: zespołu, fotografa czy dekoracji.</p>
+    <h3>Ile odkładać miesięcznie na wesele?</h3><p>Od kosztu wesela odejmij to, co już masz odłożone, i podziel przez liczbę pełnych miesięcy do ślubu. Przykład: 60 000 zł, 15 000 zł odłożone i 18 miesięcy to 2500 zł miesięcznie.</p>
+    <h3>Czy wliczać koperty od gości?</h3><p>Ostrożnie. Koperty dostajecie dopiero po weselu, a zaliczki i większość płatności trzeba zapłacić wcześniej. Kalkulator pokazuje je osobno, a kwotę do odkładania liczy bez nich.</p>
+    <h3>Ile kosztuje ślub w urzędzie stanu cywilnego?</h3><p>Opłata skarbowa za sporządzenie aktu małżeństwa wynosi 84 zł. Ślub poza urzędem albo ślub kościelny to dodatkowe koszty – wpisz je w polu „Ślub, transport, zaproszenia, inne”.</p>
+    <p>Więcej o tym, z czego składa się koszt wesela i gdzie szukać oszczędności, przeczytasz w poradniku <a href="poradnik-ile-kosztuje-wesele.html">Ile kosztuje wesele – jak policzyć budżet</a>.</p>
+    <p><small>Kwoty domyślne są przykładowe, nie są średnią rynkową. Wynik ma charakter poglądowy.</small></p>
+  </section>
+</main>
+<footer></footer>
+<script>
+// Pełne miesiące od "dzis" do daty wesela (np. 12.11 → 11.12 = 0, → 12.12 = 1).
+function pelneMiesiace(dzis, cel){
+  let m = (cel.getFullYear() - dzis.getFullYear()) * 12 + (cel.getMonth() - dzis.getMonth());
+  if (cel.getDate() < dzis.getDate()) m--;
+  return m;
+}
+const dataEl = document.getElementById("data");
+if (!dataEl.value) { const d = new Date(); d.setMonth(d.getMonth() + 12); dataEl.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
+function licz(){
+  const g = Math.round(num("goscie"));
+  const kat = [["Menu", g * num("naosobe")], ["Alkohol i napoje", g * num("alkohol")], ["Sala (opłata stała)", num("sala")],
+    ["Zespół / DJ", num("muzyka")], ["Fotograf", num("foto")], ["Kamerzysta", num("video")], ["Dekoracje i kwiaty", num("dekor")],
+    ["Stroje, fryzura, makijaż", num("stroje")], ["Obrączki", num("obraczki")], ["Tort i słodki stół", num("tort")], ["Ślub, transport, inne", num("inne")]];
+  const baza = kat.reduce((a, k) => a + k[1], 0), bufor = baza * num("bufor") / 100, suma = baza + bufor;
+  const el = document.getElementById("wynik");
+  if (suma <= 0) { el.innerHTML = "Wpisz liczbę gości i ceny."; return; }
+  const odl = num("odlozone"), kop = num("koperty"), brak = Math.max(0, suma - odl);
+  let plan = "";
+  if (dataEl.value) {
+    const [y, mo, d] = dataEl.value.split("-").map(Number), cel = new Date(y, mo - 1, d), dzis = new Date();
+    const m = pelneMiesiace(new Date(dzis.getFullYear(), dzis.getMonth(), dzis.getDate()), cel);
+    if (brak === 0) plan = `<p style="margin:10px 0 0"><strong>Masz już odłożoną całą kwotę.</strong></p>`;
+    else if (cel < new Date(dzis.getFullYear(), dzis.getMonth(), dzis.getDate())) plan = `<p style="margin:10px 0 0">Data wesela jest w przeszłości – wybierz przyszłą datę.</p>`;
+    else if (m < 1) plan = `<p style="margin:10px 0 0">Do wesela został niecały miesiąc – brakuje <strong>${zl(brak)}</strong>.</p>`;
+    else plan = `<p style="margin:10px 0 0">Do wesela: <strong>${m} pełnych mies.</strong> Odkładaj <strong>${zl(brak / m)} miesięcznie</strong>, żeby uzbierać brakujące ${zl(brak)}.</p>`;
+  }
+  el.innerHTML = `<div class="big">${zl(suma)}</div><div>szacowany koszt wesela${bufor > 0 ? " (z zapasem " + num("bufor") + "%)" : ""}</div>
+    <table>${g > 0 ? `<tr><td><strong>Koszt na jednego gościa</strong></td><td><strong>${zl(suma / g)}</strong></td></tr>` : ""}
+    ${kat.filter(k => k[1] > 0).map(k => `<tr><td>${k[0]}</td><td>${zl(k[1])} (${Math.round(k[1] / suma * 100)}%)</td></tr>`).join("")}
+    ${bufor > 0 ? `<tr><td>Zapas na nieprzewidziane</td><td>${zl(bufor)}</td></tr>` : ""}
+    <tr><td>Już odłożone</td><td>${zl(odl)}</td></tr>
+    ${kop > 0 ? `<tr><td>Bilans po kopertach (koperty − koszt)</td><td>${zl(kop - suma)}</td></tr>` : ""}</table>${plan}`;
+}
+document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", licz)); licz();
+</script>
+</body>
+</html>
