@@ -1,7 +1,6 @@
 // Wspólne elementy: nagłówek, stopka, CTA produktu i formatowanie kwot.
 // Sklep Zgrabko na Payhip (ceny w PLN). Każdy kalkulator poleca najbliższy tematycznie produkt.
 // Adres strony – jedno miejsce w JS. W HTML (canonical, og:url, JSON-LD, sitemap, robots) zmiana jednym poleceniem:
-// python pliki/zmien-adres-strony.py  (planfoxshop.github.io -> zgrabko.github.io; najpierw --sprawdz)
 const ADRES = "https://zgrabko.github.io/";
 const SKLEP = "https://payhip.com/Zgrabko";
 const P = {
